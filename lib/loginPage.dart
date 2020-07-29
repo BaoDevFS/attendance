@@ -1,3 +1,4 @@
+import 'package:attendance/controler/loginControler.dart';
 import 'package:attendance/homePage.dart';
 import 'package:attendance/sigupPage.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,6 +14,17 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   var checkbox = false;
+  LoginControler _loginControler;
+  TextEditingController _emailText, _passwordText;
+  var email;
+
+  @override
+  void initState() {
+    super.initState();
+    _loginControler = new LoginControler();
+    _emailText = new TextEditingController();
+    _passwordText = new TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +127,18 @@ class LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     TextFormField(
+                      controller: _emailText,
+                      validator: (value) {
+                        // kiểm tra rỗng
+                        if (value.isEmpty) {
+                          return 'Nhập email';
+                        } else if (value != email) {
+                          return "Email hoặc mật khẩu không đúng";
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
-                          labelText: "UserName",
+                          labelText: "Email",
                           prefixIcon: Icon(
                             Icons.person,
                             color: Colors.purple,
@@ -127,6 +149,13 @@ class LoginPageState extends State<LoginPage> {
                               borderSide: BorderSide(color: Colors.purple))),
                     ),
                     TextFormField(
+                      controller: _passwordText,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Nhập password';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                           labelText: "Password",
                           prefixIcon: Icon(Icons.vpn_key, color: Colors.purple),
@@ -140,7 +169,7 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: 10,left: 30),
+              margin: EdgeInsets.only(top: 10, left: 30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -170,10 +199,19 @@ class LoginPageState extends State<LoginPage> {
 
   Widget buttonLogin(double width, double height) {
     return InkWell(
-      onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => HomePage(),
-        ));
+      onTap: () async{
+        email = _emailText.text;
+        if (_formKey.currentState.validate()) {
+          final status = await _loginControler.login(email, _passwordText.text);
+          if (status == true) {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ));
+          } else {
+            email = " ";
+            _formKey.currentState.validate();
+          }
+        }
       },
       child: Container(
         width: width * 35 / 100,
@@ -194,6 +232,7 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
 //  Route _createRoute() {
 //    return PageRouteBuilder(
 //      pageBuilder: (context, animation, secondaryAnimation) => Page2(),
@@ -277,5 +316,12 @@ class LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailText.dispose();
+    _passwordText.dispose();
   }
 }
