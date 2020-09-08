@@ -1,12 +1,16 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:attendance/tab/homeTab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
 
 import 'attendance_icons.dart';
 
 class HomePage extends StatefulWidget {
 // list class var
-
   @override
   State<StatefulWidget> createState() {
     // fetchgroup
@@ -15,10 +19,7 @@ class HomePage extends StatefulWidget {
   }
 }
 
-@override
-void initState() {
-  
-}
+
 
 class _HomePageState extends State<HomePage> {
   @override
