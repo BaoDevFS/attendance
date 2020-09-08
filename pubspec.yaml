@@ -51,6 +51,7 @@ flutter:
     - images/logo@3x.png
     - images/img_backtoschool@3x.jpg
     - images/avatar@3x.png
+    - images/mrblack.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
