@@ -1,6 +1,7 @@
 import 'package:attendance/controler/loginControler.dart';
 import 'package:attendance/homePage.dart';
 import 'package:attendance/sigupPage.dart';
+import 'package:attendance/uploadFace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -202,11 +203,18 @@ class LoginPageState extends State<LoginPage> {
       onTap: () async {
         email = _emailText.text;
         if (_formKey.currentState.validate()) {
-          final status = await _loginControler.login(context ,email, _passwordText.text);
-          if (status == true) {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ));
+          final respone =
+              await _loginControler.login(email, _passwordText.text);
+          print(respone);
+          if (respone[0] == true) {
+            if (respone[1] == null || respone[1] == 0) {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => UploadFace(),
+              ));
+            } else
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => HomePage(),
+              ));
           } else {
             email = " ";
             _formKey.currentState.validate();
