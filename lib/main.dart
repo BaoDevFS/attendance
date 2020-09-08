@@ -1,3 +1,4 @@
+import 'package:attendance/getFaceToTrain.dart';
 import 'package:attendance/loginPage.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+      home: GetFaceToTrain(),
     );
   }
 }

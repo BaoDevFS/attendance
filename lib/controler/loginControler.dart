@@ -8,7 +8,7 @@ class LoginControler {
   var isTrained;
   login(String email, String password) async {
     print(email + ":" + password);
-    var uri = Uri.http('127.0.0.1:8000', '/api/auth/login',
+    var uri = Uri.http('192.168.1.108:8000', '/api/auth/login',
         {'email': email, 'password': password});
     final response = await http.post(
       uri,
