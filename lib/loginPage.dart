@@ -199,10 +199,10 @@ class LoginPageState extends State<LoginPage> {
 
   Widget buttonLogin(double width, double height) {
     return InkWell(
-      onTap: () async{
+      onTap: () async {
         email = _emailText.text;
         if (_formKey.currentState.validate()) {
-          final status = await _loginControler.login(email, _passwordText.text);
+          final status = await _loginControler.login(context ,email, _passwordText.text);
           if (status == true) {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => HomePage(),

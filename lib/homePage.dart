@@ -5,10 +5,19 @@ import 'package:flutter/material.dart';
 import 'attendance_icons.dart';
 
 class HomePage extends StatefulWidget {
+// list class var
+
   @override
   State<StatefulWidget> createState() {
+    // fetchgroup
+
     return new _HomePageState();
   }
+}
+
+@override
+void initState() {
+  
 }
 
 class _HomePageState extends State<HomePage> {
