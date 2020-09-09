@@ -228,7 +228,7 @@ class _HomeTabState extends State<HomeTab> {
   fetchStatusAttendance(int groupId)async{
       final code = await statusAttendace(groupId);
       if(code==1){
-          
+
       }else{
 
       }
@@ -243,7 +243,7 @@ class _HomeTabState extends State<HomeTab> {
         size: 26,
         color: Color(0xffff6400),
       ),
-    )
+    );
   }
   @override
   void dispose() {
