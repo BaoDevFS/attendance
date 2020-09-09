@@ -29,6 +29,7 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() => context = context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -208,11 +209,11 @@ class LoginPageState extends State<LoginPage> {
           print(respone);
           if (respone[0] == true) {
             if (respone[1] == null || respone[1] == 0) {
-              Navigator.of(context).push(MaterialPageRoute(
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => UploadFace(),
               ));
             } else
-              Navigator.of(context).push(MaterialPageRoute(
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => HomePage(),
               ));
           } else {
