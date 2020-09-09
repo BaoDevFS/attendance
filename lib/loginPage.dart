@@ -1,7 +1,7 @@
 import 'package:attendance/controler/loginControler.dart';
+import 'package:attendance/getFaceToTrain.dart';
 import 'package:attendance/homePage.dart';
 import 'package:attendance/sigupPage.dart';
-import 'package:attendance/uploadFace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
