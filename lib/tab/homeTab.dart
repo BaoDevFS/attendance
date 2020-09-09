@@ -21,6 +21,9 @@ class _HomeTabState extends State<HomeTab> {
   List classes = [];
   bool isLoading = true;
   String token;
+  String success ="You have been attend successfull!";
+  String fail ="You not attendance!";
+  bool status =false;
   @override
   void initState() {
     super.initState();
@@ -135,6 +138,7 @@ class _HomeTabState extends State<HomeTab> {
   }
 
   Widget _rowInListView(BuildContext context, int index) {
+    status=false;
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -211,7 +215,7 @@ class _HomeTabState extends State<HomeTab> {
                       Container(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          "You have been attend successfull!",
+                          text(classes[index].statusatendace),
                           style: TextStyle(fontSize: 16, color: Colors.green),
                         ),
                       ),
@@ -222,7 +226,7 @@ class _HomeTabState extends State<HomeTab> {
             ),
           ),
           if (classes[index].isOpen == 1)
-            bring(classes[index].id),
+            bring(classes[index]),
           Positioned(
             right: 10,
             top: 70,
@@ -236,16 +240,25 @@ class _HomeTabState extends State<HomeTab> {
       ),
     );
   }
-  fetchStatusAttendance(int groupId)async{
-      final code = await statusAttendace(groupId);
+  String text(int i){
+    if(i==0){
+      return "";
+    }else if(i==1){
+      return success;
+    }else{
+      return fail;
+    }
+  }
+  fetchStatusAttendance(Class myclass)async{
+      final code = await statusAttendace(myclass.id);
       if(code==1){
-
+        myclass.statusatendace =1;
       }else{
-
+        myclass.statusatendace =-1;
       }
   }
-  Widget bring(int groupId){
-    fetchStatusAttendance(groupId);
+  Widget bring(Class myclass){
+    fetchStatusAttendance(myclass);
     return Positioned(
       height: 18,
       width: 18,

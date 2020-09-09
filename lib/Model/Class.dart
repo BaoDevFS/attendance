@@ -4,8 +4,8 @@ class Class {
   final String description;
   final String room;
   final int isOpen;
-
-  Class({this.id, this.name, this.description, this.room, this.isOpen});
+  int statusatendace=0;
+  Class({this.id, this.name, this.description, this.room, this.isOpen,this.statusatendace=0});
 
   factory Class.fromJson(Map<String, dynamic> json) {
     return Class(
