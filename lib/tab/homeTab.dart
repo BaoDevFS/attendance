@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:attendance/ClassDetail.dart';
 import 'package:attendance/Model/Class.dart';
 import 'package:attendance/attendance_icons.dart';
+import 'package:attendance/definehost.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -29,12 +30,16 @@ class _HomeTabState extends State<HomeTab> {
   fetchClasses() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = await prefs.getString('token') ?? "";
-
+    var uri = Uri.http(
+      host,
+      apiGetListClass,
+    );
     final response = await http.get(
-      'http://127.0.0.1:8000/api/auth/getlistclass',
+      uri,
       headers: {HttpHeaders.authorizationHeader: "Bearer $token"},
     );
-    print(response);
+    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       List loadedClasses = json.decode(response.body);
       var listTmp = [];

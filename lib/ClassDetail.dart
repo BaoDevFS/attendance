@@ -1,8 +1,5 @@
-import 'package:attendance/AttendPage.dart';
-import 'package:attendance/attendance_icons.dart';
-import 'package:attendance/uploadFace.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:attendance/Model/Class.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'cameraScreen.dart';
@@ -43,7 +40,7 @@ class CLassDetail extends StatelessWidget {
         if (myClass.isOpen == 1)
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => CameraScreen(
-                // classID: classID,
+              groupid:classID
                 ),
           ));
       },
