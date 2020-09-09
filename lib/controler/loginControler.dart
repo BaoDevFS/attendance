@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:attendance/definehost.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,7 +9,7 @@ class LoginControler {
   var isTrained;
   login(String email, String password) async {
     print(email + ":" + password);
-    var uri = Uri.http('127.0.0.1:8000', '/api/auth/login',
+    var uri = Uri.http(host, apiLogin,
         {'email': email, 'password': password});
     final response = await http.post(
       uri,

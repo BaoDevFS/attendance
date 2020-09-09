@@ -1,7 +1,7 @@
 import 'package:attendance/controler/loginControler.dart';
+import 'package:attendance/getFaceToTrain.dart';
 import 'package:attendance/homePage.dart';
 import 'package:attendance/sigupPage.dart';
-import 'package:attendance/uploadFace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,6 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() => context = context);
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -210,10 +209,10 @@ class LoginPageState extends State<LoginPage> {
           if (respone[0] == true) {
             if (respone[1] == null || respone[1] == 0) {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => UploadFace(),
+                builder: (context) => GetFaceToTrain(),
               ));
             } else
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
+              Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => HomePage(),
               ));
           } else {

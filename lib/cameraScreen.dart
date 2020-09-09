@@ -1,10 +1,13 @@
 // import 'package:cameraapp/screens/preview.dart';
+import 'package:attendance/controler/attendanceController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CameraScreen extends StatefulWidget {
+  final int groupid;
+  CameraScreen({this.groupid});
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -14,12 +17,12 @@ class _CameraScreenState extends State<CameraScreen> {
   List cameras;
   int selectedCameraIndex;
   String imgPath;
+  AttendanceController _attendanceController;
 
   Future initCamera(CameraDescription cameraDescription) async {
     if (cameraController != null) {
       await cameraController.dispose();
     }
-
     cameraController =
         CameraController(cameraDescription, ResolutionPreset.high);
 
@@ -123,7 +126,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
       await cameraController.takePicture(path).then((value) {
         print(path);
-
+        _attendanceController.attendace(path, widget.groupid, context);
         // post lene server (location, time, file)
 
         // status == 200 -> navigate notifycation
@@ -143,7 +146,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    _attendanceController = new AttendanceController();
     super.initState();
     availableCameras().then((value) {
       cameras = value;
