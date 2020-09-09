@@ -184,6 +184,17 @@ class _HomeTabState extends State<HomeTab> {
                           style: TextStyle(fontSize: 20, color: Colors.black54),
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "You have been attend successfull!",
+                          style: TextStyle(fontSize: 16, color: Colors.green),
+                        ),
+                      ),
                     ],
                   ),
                 )

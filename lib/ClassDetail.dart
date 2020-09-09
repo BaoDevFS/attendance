@@ -1,6 +1,3 @@
-import 'package:attendance/AttendPage.dart';
-import 'package:attendance/attendance_icons.dart';
-import 'package:attendance/uploadFace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:attendance/Model/Class.dart';
 import 'package:flutter/material.dart';
