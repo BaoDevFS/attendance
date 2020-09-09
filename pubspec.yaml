@@ -34,7 +34,6 @@ dependencies:
   camera: ^0.5.8+2
   firebase_ml_vision: ^0.6.0
   path_provider: ^1.6.11
-  tflite_flutter: ^0.4.1
   image: ^2.1.12
 dev_dependencies:
   flutter_test:
