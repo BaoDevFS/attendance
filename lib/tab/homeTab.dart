@@ -20,7 +20,7 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   List classes = [];
   bool isLoading = true;
-
+  String token;
   @override
   void initState() {
     super.initState();
@@ -29,7 +29,7 @@ class _HomeTabState extends State<HomeTab> {
 
   fetchClasses() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String token = await prefs.getString('token') ?? "";
+    token = await prefs.getString('token') ?? "";
     var uri = Uri.http(
       host,
       apiGetListClass,
@@ -55,7 +55,22 @@ class _HomeTabState extends State<HomeTab> {
       throw Exception('Failed to load API');
     }
   }
-
+  Future<int> statusAttendace(int groupid) async {
+    var uri = Uri.http(host, apiStatusAttendace, {'groupid': '$groupid'});
+    final response = await http.get(uri, headers: {
+      'Content-Type': 'application/json',
+      'authorization': 'Bearer $token'
+    });
+    if (response.statusCode == 200) {
+      if(jsonDecode(response.body)['status']=='true'){
+        return 1;
+      }else{
+        return -1;
+      }
+    } else {
+      return -1;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -196,15 +211,7 @@ class _HomeTabState extends State<HomeTab> {
             ),
           ),
           if (classes[index].isOpen == 1)
-            Positioned(
-              height: 18,
-              width: 18,
-              child: Icon(
-                Attendance.add_alerts,
-                size: 26,
-                color: Color(0xffff6400),
-              ),
-            ),
+            bring(classes[index].id),
           Positioned(
             right: 10,
             top: 70,
@@ -218,7 +225,26 @@ class _HomeTabState extends State<HomeTab> {
       ),
     );
   }
+  fetchStatusAttendance(int groupId)async{
+      final code = await statusAttendace(groupId);
+      if(code==1){
+          
+      }else{
 
+      }
+  }
+  Widget bring(int groupId){
+    fetchStatusAttendance(groupId);
+    return Positioned(
+      height: 18,
+      width: 18,
+      child: Icon(
+        Attendance.add_alerts,
+        size: 26,
+        color: Color(0xffff6400),
+      ),
+    )
+  }
   @override
   void dispose() {
     super.dispose();

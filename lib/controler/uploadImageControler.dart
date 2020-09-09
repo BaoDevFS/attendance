@@ -63,6 +63,7 @@ class UploadImageControler {
       return -1;
     }
   }
+
   Future<int> alreadyTrain() async {
     var uri = Uri.http(
       host,
@@ -79,4 +80,5 @@ class UploadImageControler {
       return -1;
     }
   }
+
 }

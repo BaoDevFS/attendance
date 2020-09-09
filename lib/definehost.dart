@@ -5,3 +5,4 @@ final String apiAddFace ="/api/auth/addface";
 final String apiAlreadyTrain ="/api/auth/alreadytrain";
 final String apiGetListClass ="/api/auth/getlistclass";
 final String apiAttendace ="/api/auth/attendance";
+final String apiStatusAttendace ="/api/auth/satusattendance";
