@@ -256,6 +256,8 @@ class _HomeTabState extends State<HomeTab> {
       }else{
         myclass.statusatendace =-1;
       }
+      setState(() {
+      });
   }
   Widget bring(Class myclass){
     fetchStatusAttendance(myclass);
