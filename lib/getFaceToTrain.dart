@@ -1,7 +1,8 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:attendance/controler/uploadImageControler.dart';
+import 'package:attendance/homePage.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,6 @@ import 'package:flutter/widgets.dart';
 import 'package:image/image.dart' as imglib;
 import 'package:path_provider/path_provider.dart';
 import 'package:quiver/collection.dart';
-// import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 
 import 'detector_painters.dart';
 import 'utils.dart';
@@ -26,22 +26,25 @@ class _GetFaceToTrainState extends State<GetFaceToTrain> {
   // File jsonFile;
   dynamic _scanResults;
   CameraController _camera;
-  var interpreter;
+
+  // var interpreter;
   bool _isDetecting = false;
   CameraLensDirection _direction = CameraLensDirection.front;
   dynamic data = {};
-  double threshold = 1.0;
-  Directory tempDir;
-  List e1;
+
+  // double threshold = 1.0;
+  // Directory tempDir;
   bool _faceFound = false, type = true;
   int numImageSave = 0;
   var random = new Random();
 
   // final TextEditingController _name = new TextEditingController();
+  UploadImageControler upload;
+
   @override
   void initState() {
     super.initState();
-
+    upload = new UploadImageControler();
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     _initializeCamera();
@@ -82,8 +85,8 @@ class _GetFaceToTrainState extends State<GetFaceToTrain> {
         CameraController(description, ResolutionPreset.low, enableAudio: false);
     await _camera.initialize();
     await Future.delayed(Duration(milliseconds: 500));
-    tempDir = await getApplicationDocumentsDirectory();
-    String _embPath = tempDir.path + '/avatar';
+    // tempDir = await getApplicationDocumentsDirectory();
+    // String _embPath = tempDir.path + '/avatar';
     // jsonFile = new File(_embPath);
     // if (jsonFile.existsSync()) data = json.decode(jsonFile.readAsStringSync());
 
@@ -127,6 +130,7 @@ class _GetFaceToTrainState extends State<GetFaceToTrain> {
             } else {
               _isDetecting = true;
               _camera.stopImageStream();
+              processUpload();
               setState(() {
                 type = false;
               });
@@ -145,6 +149,19 @@ class _GetFaceToTrainState extends State<GetFaceToTrain> {
         );
       }
     });
+  }
+
+  processUpload() async {
+    final status = await upload.upload();
+    // upload thanh cong
+    if (status == 1) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+      // that bai
+    } else {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => GetFaceToTrain()));
+    }
   }
 
   HandleDetection _getDetectionMethod() {
@@ -238,7 +255,7 @@ class _GetFaceToTrainState extends State<GetFaceToTrain> {
           // ),
         ],
       ),
-      body: type ? _buildImage() : processUploadImage(),
+      body: type ? _buildImage(): processUploadImage() ,
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(

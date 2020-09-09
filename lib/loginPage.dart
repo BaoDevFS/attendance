@@ -1,4 +1,5 @@
 import 'package:attendance/controler/loginControler.dart';
+import 'package:attendance/getFaceToTrain.dart';
 import 'package:attendance/homePage.dart';
 import 'package:attendance/sigupPage.dart';
 import 'package:attendance/uploadFace.dart';
@@ -207,9 +208,9 @@ class LoginPageState extends State<LoginPage> {
               await _loginControler.login(email, _passwordText.text);
           print(respone);
           if (respone[0] == true) {
-            if (respone[1] == null || respone[1] == 0) {
+            if (respone[1] == null || respone[1] == '0') {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UploadFace(),
+                builder: (context) => GetFaceToTrain(),
               ));
             } else
               Navigator.of(context).push(MaterialPageRoute(
